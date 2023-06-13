@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package micro_topup;
+
+option go_package ="/src/proto/topup";
+import "google/protobuf/Any.proto";
+
+service TopUpService {
+    rpc Form(FormRequest) returns (GeneralResponse){}
+    rpc Inquiry(InquiryRequest) returns (GeneralResponse){}
+    rpc Payment(PaymentRequest)returns (GeneralResponse){}
+}
+message EmptyMessage {}
+
+message FormRequest {
+    string phoneNumber = 1;
+}
+
+message GeneralResponse{
+    int64 ressponseCode = 1;
+    string responseMessage = 2;
+    google.protobuf.Any responseData = 3;
+}
+
+message InquiryRequest {
+    string method = 6;
+    string phoneNumber = 1;
+    string nominalTopUp = 2;
+    string feeTopUp = 3;
+    DebitCardRequest cardInfo = 4;
+    string codeNumber = 5;
+    string bankCode = 7;
+}
+
+message DebitCardRequest {
+    string nomorKartu = 1;
+    string validUntil = 2;
+    string securityNum = 3;
+}
+
+
+message InquiryAddtiionalResponse{
+    string method = 1;
+    string nominalTopUp = 2;
+    string feeTopUp = 3;
+    string transactionName = 4;
+    string phoneNumber = 5;
+    DebitCardRequest cardInfo = 6;
+    string codeNumber = 7;
+}
+
+message PaymentRequest {
+    string method = 1;
+    string nominalTopUp = 2;
+    string feeTopUp = 3;
+    string transactionName = 4;
+    string phoneNumber = 5;
+    DebitCardRequest cardInfo = 6;
+    string codeNumber = 7;
+    string walletId = 8;
+    string securityCode = 9;
+}

@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package history;
+option go_package = "/src/proto/history";
+import "google/protobuf/Any.proto";
+
+service HistoryService {
+    rpc InsertHistoryLog(InsertHistoryLogRequest)returns(GeneralResponse){}
+    rpc UpdateStatusLog(UpdateStatusLogRequest)returns(GeneralResponse){}
+}
+
+message GeneralResponse {
+    int64 ressponseCode = 1;
+    string responseMessage = 2;
+    google.protobuf.Any responseData = 3;
+
+}
+
+message InsertHistoryLogRequest {
+ string walletId =  1;
+ string transactionName = 2;
+ string nominalTransaction = 3;
+ string feeTransaction = 4;
+ string categoryTransaction = 5;
+ string status = 6;
+ string transactionService = 7;
+ string refferenceNumber = 8;
+}
+
+message UpdateStatusLogRequest {
+    string lastId = 2;
+    string status = 1;
+}
